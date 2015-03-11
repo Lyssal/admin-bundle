@@ -1,0 +1,9 @@
+fos_user_admin_security_login:
+    pattern:  /login
+    defaults: { _controller: "LyssalAdminBundle:AdminSecurity:login" }
+fos_user_admin_security_check:
+    pattern:  /login_check
+    defaults: { _controller: "LyssalAdminBundle:AdminSecurity:check" }
+fos_user_admin_security_logout:
+    pattern:  /logout
+    defaults: { _controller: "LyssalAdminBundle:AdminSecurity:logout" }
