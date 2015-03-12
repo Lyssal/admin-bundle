@@ -24,8 +24,7 @@
 	},
 	"autoload" : {
 		"psr-0" : {
-			"Lyssal\\AdminBundle" : "src/"
+			"Lyssal\\AdminBundle" : "src"
 		}
-	},
-	"target-dir" : "Lyssal/AdminBundle"
+	}
 }
