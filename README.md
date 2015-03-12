@@ -2,6 +2,7 @@
 
 `LyssalAdminBundle` est une console administrative basée sur `SonataAdmin`, `FOSUser` et `Symfony CMF`.
 
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/9520370a-c925-4051-8edb-e48eeb0771c6/small.png)](https://insight.sensiolabs.com/projects/9520370a-c925-4051-8edb-e48eeb0771c6)
 
 ## Ajouts
 
