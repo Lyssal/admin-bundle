@@ -7,3 +7,8 @@ fos_user_admin_security_check:
 fos_user_admin_security_logout:
     pattern:  /logout
     defaults: { _controller: "LyssalAdminBundle:AdminSecurity:logout" }
+
+sonata_admin_dashboard:
+    pattern:  /
+    defaults:
+        _controller: "SonataAdminBundle:Core:dashboard"
