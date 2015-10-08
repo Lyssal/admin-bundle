@@ -27,14 +27,12 @@ new Lyssal\AdminBundle\LyssalAdminBundle(),
 
 ainsi que les bundles requis :
 ```php
-new Doctrine\Bundle\PHPCRBundle\DoctrinePHPCRBundle(),
 new Doctrine\Bundle\DoctrineCacheBundle\DoctrineCacheBundle(),
 new Knp\Bundle\MenuBundle\KnpMenuBundle(),
 new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
 new FOS\UserBundle\FOSUserBundle(),
 new Sonata\CoreBundle\SonataCoreBundle(),
 new Sonata\BlockBundle\SonataBlockBundle(),
-new Sonata\DoctrinePHPCRAdminBundle\SonataDoctrinePHPCRAdminBundle(),
 new Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle(),
 new Sonata\AdminBundle\SonataAdminBundle(),
 new Ivory\CKEditorBundle\IvoryCKEditorBundle(),
@@ -55,21 +53,6 @@ Dans votre `config.yml` :
 ```yml
 framework:
     translator: { fallbacks: ["%locale%"] }
-
-doctrine_phpcr:
-    session:
-        backend:
-            type: doctrinedbal
-            connection: default
-            caches:
-                meta: doctrine_cache.providers.phpcr_meta
-                nodes: doctrine_cache.providers.phpcr_nodes
-        workspace: "default"
-        username: "admin"
-        password: "admin"
-    odm:
-        auto_mapping: true
-        auto_generate_proxy_classes: "%kernel.debug%"
 
 doctrine_cache:
     providers:
@@ -114,23 +97,6 @@ sonata_admin:
     security:
         handler: sonata.admin.security.handler.role
 
-sonata_doctrine_phpcr_admin:
-    document_tree_defaults: [locale]
-    # Définir les arbres à afficher (pour le choix des parents par exemple dans la gestion de Symfony CMF)
-    document_tree:
-        # Arbre générique de Symfony CMF, préférer utiliser l'entité pour les éléments dont on va se servir dans l'application
-        Doctrine\ODM\PHPCR\Document\Generic:
-            valid_children:
-                - all
-        # Menus
-        Symfony\Cmf\Bundle\MenuBundle\Doctrine\Phpcr\Menu:
-            valid_children:
-                - all
-        # Pages de SimpleCMS
-        Symfony\Cmf\Bundle\SimpleCmsBundle\Doctrine\Phpcr\Page:
-            valid_children:
-                - all
-
 
 ivory_ck_editor:
     configs:
@@ -149,6 +115,7 @@ admin:
 _sonata_admin:
     resource: .
     type: sonata_admin
+    prefix: /console
 
 lyssal_admin:
     resource: "@LyssalAdminBundle/Resources/config/routing.yml"
@@ -230,6 +197,8 @@ security:
 
 Dans votre `AppKernel.php` :
 ```php
+new Doctrine\Bundle\PHPCRBundle\DoctrinePHPCRBundle(),
+new Sonata\DoctrinePHPCRAdminBundle\SonataDoctrinePHPCRAdminBundle(),
 new Symfony\Cmf\Bundle\CoreBundle\CmfCoreBundle(),
 new Symfony\Cmf\Bundle\ContentBundle\CmfContentBundle(),
 new Symfony\Cmf\Bundle\RoutingBundle\CmfRoutingBundle(),
@@ -240,6 +209,38 @@ new Lyssal\SymfonyCmf\SimpleCmsBundle\LyssalSymfonyCmfSimpleCmsBundle(),
 
 Dans votre `config.yml` :
 ```yml
+doctrine_phpcr:
+    session:
+        backend:
+            type: doctrinedbal
+            connection: default
+            caches:
+                meta: doctrine_cache.providers.phpcr_meta
+                nodes: doctrine_cache.providers.phpcr_nodes
+        workspace: "default"
+        username: "admin"
+        password: "admin"
+    odm:
+        auto_mapping: true
+        auto_generate_proxy_classes: "%kernel.debug%"
+
+sonata_doctrine_phpcr_admin:
+    document_tree_defaults: [locale]
+    # Définir les arbres à afficher (pour le choix des parents par exemple dans la gestion de Symfony CMF)
+    document_tree:
+        # Arbre générique de Symfony CMF, préférer utiliser l'entité pour les éléments dont on va se servir dans l'application
+        Doctrine\ODM\PHPCR\Document\Generic:
+            valid_children:
+                - all
+        # Menus
+        Symfony\Cmf\Bundle\MenuBundle\Doctrine\Phpcr\Menu:
+            valid_children:
+                - all
+        # Pages de SimpleCMS
+        Symfony\Cmf\Bundle\SimpleCmsBundle\Doctrine\Phpcr\Page:
+            valid_children:
+                - all
+
 cmf_core:
     persistence:
         phpcr: true
